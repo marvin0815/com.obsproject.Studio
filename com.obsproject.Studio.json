@@ -20,7 +20,8 @@
         "--talk-name=org.mate.SessionManager",
         "--talk-name=org.gnome.SessionManager",
         "--own-name=org.kde.StatusNotifierItem-2-2",
-        "--system-talk-name=org.freedesktop.Avahi"
+        "--system-talk-name=org.freedesktop.Avahi",
+        "--env=GST_VAAPI_ALL_DRIVERS=1"
     ],
     "add-extensions": {
         "com.obsproject.Studio.Plugin": {
@@ -315,6 +316,36 @@
                     "type": "archive",
                     "url": "https://gitlab.gnome.org/feaneron/obs-xdg-portal/-/archive/0.1.2/obs-xdg-portal-0.1.2.tar.gz",
                     "sha256": "ef0c72680a58e8bf30c6bbc6c3daf163031c6dfc2b0c01a3b2b26fc995db145e"
+                }
+            ]
+        },
+	{
+	    "name": "gstreamer-vaapi",
+	    "buildsystem": "meson",
+            "config-opts": [
+                "--buildtype=release",
+                "-Ddoc=disabled"
+            ],
+            "builddir": true,
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://gitlab.freedesktop.org/gstreamer/gstreamer-vaapi/-/archive/1.16.3/gstreamer-vaapi-1.16.3.tar.gz",
+                    "sha256": "ba457f05d8728e691c750b6c2c5c9e7902ee478b974142bb0255c537dc3a0e65"
+                }
+            ]
+        },
+    {
+        "name": "obs-gstreamer",
+        "buildsystem": "meson",
+            "config-opts": [
+                "--buildtype=release"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/fzwoch/obs-gstreamer/archive/refs/tags/v0.3.0.tar.gz",
+                    "sha256": "0dc6c67391fa878598d3aed35b55240eec183a38272e7744b47fcff8ddccb491"
                 }
             ]
         }
