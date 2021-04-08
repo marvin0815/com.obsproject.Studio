@@ -323,8 +323,7 @@
 	    "name": "gstreamer-vaapi",
 	    "buildsystem": "meson",
             "config-opts": [
-                "--buildtype=release",
-                "-Ddoc=disabled"
+                "--buildtype=release"
             ],
             "builddir": true,
             "sources": [
@@ -344,8 +343,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/fzwoch/obs-gstreamer/archive/refs/tags/v0.3.0.tar.gz",
-                    "sha256": "0dc6c67391fa878598d3aed35b55240eec183a38272e7744b47fcff8ddccb491"
+                    "url": "https://github.com/fzwoch/obs-gstreamer/archive/refs/tags/v0.3.1.tar.gz",
+                    "sha256": "162e903ea7b2e4eda6330d92e39fc37405fbaac29ac524a5ba2abe513a99df35"
                 }
             ]
         }
