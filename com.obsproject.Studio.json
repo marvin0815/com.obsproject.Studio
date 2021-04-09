@@ -89,11 +89,10 @@
                 "-DLIBVA_INSTALL_PATH=/app"
             ],
             "cleanup": [
-                "/include",
-                "/lib"
+                "/include"
             ],
             "post-install": [
-                "ln -sf /usr/lib/x86_64-linux-gnu/dri/*.so /app/lib/dri/"
+                "ln -sf /usr/lib/x86_64-linux-gnu/GL/lib/dri/*.so /app/lib/dri/"
             ]
         },
         {
@@ -313,15 +312,43 @@
             ]
         },
         {
+            "name": "cef",
+            "buildsystem": "cmake-ninja",
+            "no-make-install": true,
+            "make-args": [
+                "libcef_dll_wrapper"
+            ],
+            "build-commands": [
+                "mkdir -p /app/cef/libcef_dll_wrapper",
+                "cp -R ./include /app/cef",
+                "cp -R ./Release /app/cef",
+                "cp -R ./Resources /app/cef",
+                "cp -R ./libcef_dll_wrapper/libcef_dll_wrapper.a /app/cef/libcef_dll_wrapper"
+            ],
+            "cleanup": [
+                "./*"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://cef-builds.spotifycdn.com/cef_binary_89.0.18%2Bgb36241d%2Bchromium-89.0.4389.114_linux64_minimal.tar.bz2",
+                    "sha256": "876e65cf45bfbfd743588079ec9b1a0cdc0faf70542d57798ba0a24ad4fabe19"
+                }
+            ]
+        },
+        {
             "name": "obs",
             "buildsystem": "cmake-ninja",
             "builddir": true,
             "config-opts": [
                 "-DCMAKE_BUILD_TYPE=Release",
+                "-DBUILD_BROWSER=ON",
+                "-DCEF_ROOT_DIR=/app/cef",
                 "-DUNIX_STRUCTURE=ON",
                 "-DUSE_XDG=ON",
                 "-DDISABLE_ALSA=ON",
                 "-DENABLE_PULSEAUDIO=ON",
+                "-DENABLE_PIPEWIRE=ON",
                 "-DWITH_RTMPS=ON",
                 "-DOBS_VERSION_OVERRIDE=26.1.1"
             ],
