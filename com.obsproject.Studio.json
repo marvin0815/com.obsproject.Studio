@@ -70,8 +70,7 @@
             "buildsystem": "cmake",
             "builddir": true,
             "cleanup": [
-                "/include",
-                "/lib"
+                "/include"
             ]
         },
         {
