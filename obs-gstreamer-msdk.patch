@@ -1,0 +1,29 @@
+diff --git a/gstreamer-encoder.c b/gstreamer-encoder.c
+index 08e5130..68b5c14 100644
+--- a/gstreamer-encoder.c
++++ b/gstreamer-encoder.c
+@@ -132,6 +132,13 @@ void *gstreamer_encoder_create(obs_data_t *settings, obs_encoder_t *encoder)
+ 			is_cbr ? "cbr" : "vbr",
+ 			(int)obs_data_get_int(data->settings, "keyint_sec") *
+ 				data->ovi.fps_num / data->ovi.fps_den);
++	} else if (g_strcmp0(encoder_type, "msdkh264enc") == 0) {
++                encoder_string = g_strdup_printf(
++                        "msdkh264enc bitrate=%d rate-control=%s gop-size=%d",
++                        (int)obs_data_get_int(data->settings, "bitrate"),
++                        is_cbr ? "cbr" : "vbr",
++                        (int)obs_data_get_int(data->settings, "keyint_sec") *
++                                data->ovi.fps_num / data->ovi.fps_den);
+ 	} else if (g_strcmp0(encoder_type, "vaapih264enc") == 0) {
+ 		encoder_string = g_strdup_printf(
+ 			"vaapih264enc bitrate=%d rate-control=%s keyframe-period=%d",
+@@ -341,7 +348,9 @@ obs_properties_t *gstreamer_encoder_get_properties(void *data)
+ 		obs_property_list_add_string(prop, "NVIDIA (NVENC)",
+ 					     "nvh264enc");
+ 	if (check_feature("vaapih264enc"))
+-		obs_property_list_add_string(prop, "VA-API", "vaapih264enc");
++		obs_property_list_add_string(prop, "VA-API H264 encoder", "vaapih264enc");
++	if (check_feature("msdkh264enc"))
++                obs_property_list_add_string(prop, "Intel MSDK H264 encoder", "msdkh264enc");
+ 	if (check_feature("omxh264enc"))
+ 		obs_property_list_add_string(prop, "OpenMAX (Raspberry Pi)",
+ 					     "omxh264enc");

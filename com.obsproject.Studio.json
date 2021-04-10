@@ -386,7 +386,35 @@
                 }
             ]
         },
-	{
+        {
+            "name": "libdrm",
+            "buildsystem": "meson",
+            "cleanup": [
+                "*"
+            ],
+            "sources": [
+                 {
+                     "type": "git",
+                     "url": "git://anongit.freedesktop.org/mesa/drm"
+                 }
+            ]
+        },
+        {
+            "name": "intel-media-sdk",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/Intel-Media-SDK/MediaSDK/archive/refs/tags/intel-mediasdk-20.2.1.tar.gz",
+                    "sha256": "e13d7d0cf8a4e455ef4032e0cacff63bbbe934a13652ee236ff95d3b9bbb7154"
+                }
+            ],
+            "buildsystem": "cmake",
+            "builddir": true,
+            "cleanup": [
+                "/include"
+            ]
+        },
+	    {
 	    "name": "gstreamer-vaapi",
 	    "buildsystem": "meson",
             "config-opts": [
@@ -401,7 +429,49 @@
                 }
             ]
         },
-    {
+        {
+            "name": "libgudev",
+            "buildsystem": "meson",
+                "config-opts": [
+                    "--buildtype=release"
+                ],
+                "builddir": true,
+                "cleanup": [
+                    "/include"
+                ],
+                "sources": [
+                    {
+                        "type": "archive",
+                        "url": "https://gitlab.gnome.org/GNOME/libgudev/-/archive/236/libgudev-236.tar.gz",
+                        "sha256": "41449bfe88b058d33048132eb0c1c72e1b00082fa9296347b7e5b8ff116a742b"
+                    }
+                ]
+            },
+        {
+            "name": "gstreamer-msdk",
+            "buildsystem": "meson",
+                "config-opts": [
+                    "--buildtype=release",
+                    "-Dmsdk=enabled"
+                ],
+                "builddir": true,
+                "no-make-install": true,
+                "post-install": [
+                    "cp ./sys/vdpau/libgstvdpau.so /app/lib/gstreamer-1.0",
+                    "cp ./sys/msdk/libgstmsdk.so /app/lib/gstreamer-1.0"
+                ],
+                "cleanup": [
+                    "/include"
+                ],
+                "sources": [
+                    {
+                        "type": "archive",
+                        "url": "https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/-/archive/1.16.3/gst-plugins-bad-1.16.3.tar.gz",
+                        "sha256": "656fc992e18e7604d172f09cfb1f5900060119697975d3347c219bf11716de0b"
+                    }
+                ]
+            },
+        {
         "name": "obs-gstreamer",
         "buildsystem": "meson",
             "config-opts": [
@@ -412,8 +482,13 @@
                     "type": "archive",
                     "url": "https://github.com/fzwoch/obs-gstreamer/archive/refs/tags/v0.3.1.tar.gz",
                     "sha256": "162e903ea7b2e4eda6330d92e39fc37405fbaac29ac524a5ba2abe513a99df35"
+                },
+                {
+                    "type": "patch",
+                    "path": "obs-gstreamer-msdk.patch"
                 }
             ]
+        
         }
     ]
 }

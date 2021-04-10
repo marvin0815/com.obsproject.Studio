@@ -2,8 +2,10 @@ Forked from https://github.com/flathub/com.obsproject.Studio
 
 # Changes from upstream
 1. added gstreamer-vaapi plugin
+1. added gstreamer-msdk and vdpau plugin
 1. added iHD libva driver
 1. added obs-gstreamer plugin
+1. added obs-gstreamer patch to support MSDK (no vdpau atm)
 1. added libcef and enable browser plugin
 
 # ToDo
