@@ -468,7 +468,11 @@
                         "type": "archive",
                         "url": "https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/-/archive/1.16.3/gst-plugins-bad-1.16.3.tar.gz",
                         "sha256": "656fc992e18e7604d172f09cfb1f5900060119697975d3347c219bf11716de0b"
-                    }
+                    },
+                    {
+                    "type": "patch",
+                    "path": "gstreamer-msdk-fix-msdkdec.patch"
+                }
                 ]
             },
         {
