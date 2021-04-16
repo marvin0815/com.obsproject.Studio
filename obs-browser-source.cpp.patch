@@ -1,0 +1,19 @@
+diff --git a/plugins/obs-browser/obs-browser-source.cpp b/plugins/obs-browser/obs-browser-source.cpp
+index ab1181e..4ef28e4 100644
+--- a/plugins/obs-browser/obs-browser-source.cpp
++++ b/plugins/obs-browser/obs-browser-source.cpp
+@@ -177,14 +177,6 @@ bool BrowserSource::CreateBrowser()
+ 		cefBrowserSettings.default_font_size = 16;
+ 		cefBrowserSettings.default_fixed_font_size = 16;
+ 
+-#if ENABLE_LOCAL_FILE_URL_SCHEME
+-		if (is_local) {
+-			/* Disable web security for file:// URLs to allow
+-			 * local content access to remote APIs */
+-			cefBrowserSettings.web_security = STATE_DISABLED;
+-		}
+-#endif
+-
+ 		cefBrowser = CefBrowserHost::CreateBrowserSync(
+ 			windowInfo, browserClient, url, cefBrowserSettings,
+ #if CHROME_VERSION_BUILD >= 3770
