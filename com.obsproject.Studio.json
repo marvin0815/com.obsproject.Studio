@@ -329,8 +329,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://cef-builds.spotifycdn.com/cef_binary_90.5.3%2Bgaf0e862%2Bchromium-90.0.4430.72_linux64_minimal.tar.bz2",
-                    "sha256": "25795f09c3cd579cc84016377b889419657166b3045e9bc8d2e1a9b7f1701266"
+                    "url": "https://cef-builds.spotifycdn.com/cef_binary_89.0.18%2Bgb36241d%2Bchromium-89.0.4389.114_linux64_minimal.tar.bz2",
+                    "sha256": "876e65cf45bfbfd743588079ec9b1a0cdc0faf70542d57798ba0a24ad4fabe19"
                 }
             ]
         },
