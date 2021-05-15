@@ -327,7 +327,7 @@
                 "-DENABLE_PULSEAUDIO=ON",
                 "-DENABLE_PIPEWIRE=ON",
                 "-DWITH_RTMPS=ON",
-                "-DOBS_VERSION_OVERRIDE=27.0.0-rc2"
+                "-DOBS_VERSION_OVERRIDE=27.0.0-rc4"
             ],
             "post-install": [
                 "install -d /app/plugins",
@@ -341,16 +341,13 @@
                 {
                     "type": "git",
                     "url": "https://github.com/obsproject/obs-studio.git",
-                    "tag": "27.0.0-rc2",
-                    "commit": "dca1d3714b8bf009ff17e8fd019b6827f1fa7f11"
+                    "tag": "27.0.0-rc4",
+                    "commit": "6698638450c288910d17a803d194e6ff465d8b3c"
                 },
                 {
                     "type": "patch",
                     "path": "obs-plugins-dir.patch"
-                },
-		{   "type": "patch",
-		    "path": "obs-browser-source.cpp.patch"
-		}
+                }
             ]
         },
         {
