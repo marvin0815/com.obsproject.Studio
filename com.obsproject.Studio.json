@@ -364,20 +364,6 @@
             ]
         },
         {
-            "name": "obs-xdg-portal",
-            "buildsystem": "meson",
-            "config-opts": [
-                "--buildtype=release"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://gitlab.gnome.org/feaneron/obs-xdg-portal/-/archive/0.1.2/obs-xdg-portal-0.1.2.tar.gz",
-                    "sha256": "ef0c72680a58e8bf30c6bbc6c3daf163031c6dfc2b0c01a3b2b26fc995db145e"
-                }
-            ]
-        },
-        {
             "name": "libdrm",
             "buildsystem": "meson",
             "cleanup": [
