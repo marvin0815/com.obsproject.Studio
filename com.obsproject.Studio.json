@@ -7,13 +7,15 @@
     "command": "obs",
     "finish-args": [
         "--socket=x11",
+        "--socket=wayland",
         "--socket=pulseaudio",
         "--device=all",
         "--share=network",
         "--share=ipc",
-        "--filesystem=xdg-run/obs-xdg-portal:create",
         "--filesystem=host",
+        "--filesystem=xdg-run/pipewire-0",
         "--talk-name=org.kde.StatusNotifierWatcher",
+        "--talk-name=org.freedesktop.Flatpak",
         "--talk-name=org.freedesktop.ScreenSaver",
         "--talk-name=org.freedesktop.PowerManagement.Inhibit",
         "--talk-name=org.freedesktop.Notifications",
@@ -22,7 +24,8 @@
         "--own-name=org.kde.StatusNotifierItem-2-2",
         "--system-talk-name=org.freedesktop.Avahi",
         "--env=GST_VAAPI_ALL_DRIVERS=1",
-        "--env=LIBVA_DRIVERS_PATH=/app/lib/dri"
+        "--env=LIBVA_DRIVERS_PATH=/app/lib/dri",
+        "--env=VST_PATH=/app/extensions/Plugins/lxvst"
     ],
     "add-extensions": {
         "com.obsproject.Studio.Plugin": {
@@ -50,6 +53,14 @@
             "add-ld-path": ".",
             "no-autodownload": true,
             "autodelete": true
+        },
+        "org.freedesktop.LinuxAudio.Plugins": {
+            "directory": "extensions/Plugins",
+            "version": "20.08",
+            "add-ld-path": "lib",
+            "merge-dirs": "lxvst",
+            "subdirectories": true,
+            "no-autodownload": true
         }
     },
     "cleanup": [
@@ -302,7 +313,7 @@
                 "cp -R ./libcef_dll_wrapper/libcef_dll_wrapper.a /app/cef/libcef_dll_wrapper"
             ],
             "cleanup": [
-		"*.a",
+                "*.a",
                 "./*"
             ],
             "sources": [
@@ -319,6 +330,7 @@
             "builddir": true,
             "config-opts": [
                 "-DCMAKE_BUILD_TYPE=Release",
+                "-DENABLE_WAYLAND=ON",
                 "-DBUILD_BROWSER=ON",
                 "-DCEF_ROOT_DIR=/app/cef",
                 "-DUNIX_STRUCTURE=ON",
@@ -327,10 +339,11 @@
                 "-DENABLE_PULSEAUDIO=ON",
                 "-DENABLE_PIPEWIRE=ON",
                 "-DWITH_RTMPS=ON",
-                "-DOBS_VERSION_OVERRIDE=27.0.0-rc4"
+                "-DOBS_VERSION_OVERRIDE=27.0.0"
             ],
             "post-install": [
                 "install -d /app/plugins",
+                "install -d /app/extensions/Plugins",
                 "install -d /app/lib/blackmagic /app/lib/ndi /app/lib/v4l2sink",
                 "ln -s /app/lib/ndi/obs-ndi.so /app/lib/obs-plugins/obs-ndi.so",
                 "mkdir -p /app/share/obs/obs-plugins/obs-ndi",
@@ -341,8 +354,8 @@
                 {
                     "type": "git",
                     "url": "https://github.com/obsproject/obs-studio.git",
-                    "tag": "27.0.0-rc4",
-                    "commit": "6698638450c288910d17a803d194e6ff465d8b3c"
+                    "tag": "27.0.0",
+                    "commit": "35c07bb7e612d192663688ba39308311a5dcce6b"
                 },
                 {
                     "type": "patch",
@@ -470,7 +483,6 @@
                     "path": "obs-gstreamer-msdk.patch"
                 }
             ]
-        
         }
     ]
 }
