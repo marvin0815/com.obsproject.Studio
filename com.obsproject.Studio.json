@@ -7,13 +7,15 @@
     "command": "obs",
     "finish-args": [
         "--socket=x11",
+        "--socket=wayland",
         "--socket=pulseaudio",
         "--device=all",
         "--share=network",
         "--share=ipc",
-        "--filesystem=xdg-run/obs-xdg-portal:create",
         "--filesystem=host",
+        "--filesystem=xdg-run/pipewire-0",
         "--talk-name=org.kde.StatusNotifierWatcher",
+        "--talk-name=org.freedesktop.Flatpak",
         "--talk-name=org.freedesktop.ScreenSaver",
         "--talk-name=org.freedesktop.PowerManagement.Inhibit",
         "--talk-name=org.freedesktop.Notifications",
@@ -22,7 +24,8 @@
         "--own-name=org.kde.StatusNotifierItem-2-2",
         "--system-talk-name=org.freedesktop.Avahi",
         "--env=GST_VAAPI_ALL_DRIVERS=1",
-        "--env=LIBVA_DRIVERS_PATH=/app/lib/dri"
+        "--env=LIBVA_DRIVERS_PATH=/app/lib/dri",
+        "--env=VST_PATH=/app/extensions/Plugins/lxvst"
     ],
     "add-extensions": {
         "com.obsproject.Studio.Plugin": {
@@ -50,6 +53,14 @@
             "add-ld-path": ".",
             "no-autodownload": true,
             "autodelete": true
+        },
+        "org.freedesktop.LinuxAudio.Plugins": {
+            "directory": "extensions/Plugins",
+            "version": "20.08",
+            "add-ld-path": "lib",
+            "merge-dirs": "lxvst",
+            "subdirectories": true,
+            "no-autodownload": true
         }
     },
     "cleanup": [
@@ -109,7 +120,7 @@
                     "type": "git",
                     "url": "https://code.videolan.org/videolan/x264.git",
                     "branch": "master",
-                    "commit": "b684ebe04a6f80f8207a57940a1fa00e25274f81"
+                    "commit": "ae03d92b52bb7581df2e75d571989cb1ecd19cbd"
                 }
             ]
         },
@@ -302,7 +313,7 @@
                 "cp -R ./libcef_dll_wrapper/libcef_dll_wrapper.a /app/cef/libcef_dll_wrapper"
             ],
             "cleanup": [
-		"*.a",
+                "*.a",
                 "./*"
             ],
             "sources": [
@@ -319,6 +330,7 @@
             "builddir": true,
             "config-opts": [
                 "-DCMAKE_BUILD_TYPE=Release",
+                "-DENABLE_WAYLAND=ON",
                 "-DBUILD_BROWSER=ON",
                 "-DCEF_ROOT_DIR=/app/cef",
                 "-DUNIX_STRUCTURE=ON",
@@ -327,10 +339,11 @@
                 "-DENABLE_PULSEAUDIO=ON",
                 "-DENABLE_PIPEWIRE=ON",
                 "-DWITH_RTMPS=ON",
-                "-DOBS_VERSION_OVERRIDE=26.1.1"
+                "-DOBS_VERSION_OVERRIDE=27.0.1"
             ],
             "post-install": [
                 "install -d /app/plugins",
+                "install -d /app/extensions/Plugins",
                 "install -d /app/lib/blackmagic /app/lib/ndi /app/lib/v4l2sink",
                 "ln -s /app/lib/ndi/obs-ndi.so /app/lib/obs-plugins/obs-ndi.so",
                 "mkdir -p /app/share/obs/obs-plugins/obs-ndi",
@@ -341,26 +354,12 @@
                 {
                     "type": "git",
                     "url": "https://github.com/obsproject/obs-studio.git",
-                    "tag": "26.1.1",
-                    "commit": "dffa8221124106bc2a4c92e5f5d0fa21128a61f6"
+                    "tag": "27.0.1",
+                    "commit": "cd5873e9bcfaf9cc2614939ddb3264bea919be4a"
                 },
                 {
                     "type": "patch",
                     "path": "obs-plugins-dir.patch"
-                }
-            ]
-        },
-        {
-            "name": "obs-xdg-portal",
-            "buildsystem": "meson",
-            "config-opts": [
-                "--buildtype=release"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://gitlab.gnome.org/feaneron/obs-xdg-portal/-/archive/0.1.2/obs-xdg-portal-0.1.2.tar.gz",
-                    "sha256": "ef0c72680a58e8bf30c6bbc6c3daf163031c6dfc2b0c01a3b2b26fc995db145e"
                 }
             ]
         },
@@ -471,6 +470,8 @@
                 }
             ]
         
+=======
+>>>>>>> 5a7abff0d8bcddbab3d1a8b94bde18e6bd29c384
         }
     ]
 }
